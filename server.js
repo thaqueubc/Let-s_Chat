@@ -1,5 +1,5 @@
 const mongo = require('mongodb').MongoClient;
-const client = require('socket.io').listen(4000).sockets;
+const clientSocket = require('socket.io').listen(4000).sockets;
 
 // Connect to Mongo
 const url = 'mongodb://127.0.0.1/letsChat';
@@ -8,16 +8,19 @@ mongo.connect(
     url,
      { useNewUrlParser: true, useUnifiedTopology: true },
      //callback function
-      (err, db) => { 
+     // need to pass 'client' instead of 'db' for mongodb version>=3.0.0
+      (err, client) => { 
         if (err) {throw err;}
     
         console.log('MongoDB is connected...');
 
         // Connect to socket.io
-        client.on('connection', function(socket){
+        clientSocket.on('connection', function(socket){
             //Create a collection to store chats
-            let chat = db.collection('chats');
-
+        
+            let database = client.db('chatDb');
+            let chat = database.collection('chats');
+            
             // Create function to send status
             sendStatus = function(s){
                 socket.emit('status',s);
@@ -47,7 +50,7 @@ mongo.connect(
                         name: name,
                         message:message
                     }, function(){
-                        client.emit('output', [data]);
+                        clientSocket.emit('output', [data]);
 
                         // send status object
                         sendStatus({

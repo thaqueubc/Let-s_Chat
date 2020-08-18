@@ -55,7 +55,27 @@
             // Set Default status
             var statusDefault = status.textContent;
 
-           
+            var setStatus = function(s) {
+                status.textContent = s;
+
+                if(s !== statusDefault){
+                    var delay = setTimeout(() => {
+                        setStatus(statusDefault);
+                    }, 4000);
+                }
+            }
+
+            //Connect to socket.io
+            var socket = io.connect('http://127.0.0.1:4000');
+
+            // Check for connection
+            if(socket !== undefined){
+                console.log('Connected to socket...');
+
+                socket.on('output', function (data) {
+                    console.log(data);
+                });
+            }
         })();
     </script>
 </body>
