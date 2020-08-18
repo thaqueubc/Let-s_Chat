@@ -29,7 +29,7 @@
                       <div class="card">
                           <div id="messages" class="card-block"></div>
                           <br>
-                          
+
                           <textarea name="" id="textarea" class="form-control" placeholder="Enter messages..."></textarea>
                       </div>
                 </div>
@@ -115,7 +115,17 @@
 
                         event.preventDefault();
                     }
-                })
+                });
+
+                // Handle Chat Clear
+                clearBtn.addEventListener('click', function(){
+                    socket.emit('clear');
+                });
+
+                // Clear Message
+                socket.on('cleared', function(){
+                    messages.textContent = '';
+                });
             }
         })();
     </script>
