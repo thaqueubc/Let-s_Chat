@@ -2,7 +2,7 @@ const mongo = require('mongodb').MongoClient;
 const clientSocket = require('socket.io').listen(4000).sockets;
 
 // Connect to Mongo
-const url = 'mongodb://127.0.0.1/letsChat';
+const url = 'mongodb://127.0.0.1:27017/letsChatDb';
 
 mongo.connect(
     url,
@@ -18,7 +18,7 @@ mongo.connect(
         clientSocket.on('connection', function(socket){
             //Create a collection to store chats
         
-            let database = client.db('chatDb');
+            let database = client.db('letsChatDb');
             let chat = database.collection('chats');
             
             // Create function to send status
