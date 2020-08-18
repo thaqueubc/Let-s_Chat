@@ -54,11 +54,19 @@ mongo.connect(
                             message: 'Message sent',
                             clear: true
                         });
-                    })
+                    });
                 }
+            });
+
+            //Handle clear
+            socket.on('clear', function(data){
+                //Remove all chats from the collection
+                chat.remove({}, function(){
+                    socket.emit('cleared');
+                })
             })
 
-        })
+        });
 
       }
     );
