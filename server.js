@@ -31,7 +31,33 @@ mongo.connect(
                 socket.emit('output', res);
             });
 
-            
+            // Handle input events. data is the messeage send by someone else
+            // we need to read 'data' and retrieve the name of the sender and the message
+            socket.on('input', function(data){
+                let name = data.name;
+                let message = data.message;
+
+                //Check for name and message
+                if(name == '' || message == ''){
+                    //send error status
+                    sendStatus('Please send a name and message');
+                }else{
+                    // insert message
+                    chat.insert({
+                        name: name,
+                        message:message
+                    }, function(){
+                        client.emit('output', [data]);
+
+                        // send status object
+                        sendStatus({
+                            message: 'Message sent',
+                            clear: true
+                        });
+                    })
+                }
+            })
+
         })
 
       }
