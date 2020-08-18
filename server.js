@@ -14,7 +14,7 @@ mongo.connect(
         console.log('MongoDB is connected...');
 
         // Connect to socket.io
-        client.on('connection', function(){
+        client.on('connection', function(socket){
             //Create a collection to store chats
             let chat = db.collection('chats');
 
