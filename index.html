@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Let's Chat</title>
+
+    <style>
+        #messages{height: 300px;}
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,9 +19,44 @@
             <div class="col-md-6 offset-md-3 col-sm-12"> 
                 <h1 class="text-center">
                     Let's Chat
+                    <button id='clear' class="btn btn-danger">Clear</button>
                 </h1>
+
+                <div id="status"></div>
+                <div id="chat">
+                    <input type="text" id="username" class="form-control" placeholder="Enter name...">
+                      <div class="card">
+                          <div id="messages" class="card-block">
+
+                          </div>
+                          <br>
+                          <textarea name="" id="textarea" class="form-control" placeholder="Enter messages..."></textarea>
+                      </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+    <script>
+        (function(){
+            var element = function(id){
+                return document.getElementById(id);
+            }
+
+            // Get Elements
+            var status = element('status');
+            var messages = element('messages');
+            var textarea = element('textarea');
+            var username = element('username');
+            var clearBtn = element('clear');
+
+            // Set Default status
+            var statusDefault = status.textContent;
+
+           
+        })();
+    </script>
 </body>
 </html>
