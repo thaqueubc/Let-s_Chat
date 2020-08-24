@@ -18,6 +18,13 @@ const Chat = ({location}) =>{
         setRoom(room);
 
         socket.emit('join',{name, room});
+
+        // this will happen when the component will be unmounted
+        return () =>{
+            socket.emit('disconnect');
+            // turn off this socket instance(disconnect this user from chat)
+            socket.off();
+        }
     }, [ENDPOINT, location.search]);
     return (
         <h1>Chat</h1>
