@@ -16,6 +16,15 @@ const server = http.createServer(app);
 // initialize the instance of socket.io with server
 const io = socketio(server);
 
+//Connect & disconnect user using socket.io
+io.on('connection',(socket) =>{
+    console.log("We have a connection !!!!");
+
+    socket.on('disconnect', () =>{
+        console.log("User had left");
+    })
+});
+
 // use the router as a middleware 
 app.use(router);
 
