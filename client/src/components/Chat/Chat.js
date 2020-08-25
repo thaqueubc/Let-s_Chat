@@ -8,7 +8,11 @@ const Chat = ({location}) =>{
 
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:5000';
+
+    // this useEffect will handle connect & disconnect event
     useEffect(() =>{
         const {name, room} = queryString.parse(location.search);
         
@@ -17,7 +21,11 @@ const Chat = ({location}) =>{
         setName(name);
         setRoom(room);
 
-        socket.emit('join',{name, room});
+        socket.emit('join',{name, room}, (error) =>{
+            if(error){
+                alert(error);
+            }
+        });
 
         // this will happen when the component will be unmounted
         return () =>{
@@ -26,8 +34,33 @@ const Chat = ({location}) =>{
             socket.off();
         }
     }, [ENDPOINT, location.search]);
+
+    // this useEffect will handle message event
+    useEffect(() =>{
+        socket.on('message', (message) =>{
+            setMessages(messages => [...messages, message]);
+        });
+    }, [messages]);
+
+    const sendMessage = (event) =>{
+       
+        event.preventDefault();
+        // send the message to backend and the clear the message using the callback method () => setMessage('')
+        if(message){
+            socket.emit('sendMessage', message, () => setMessage(''));
+        }
+    }
+
+    console.log(messages, message);
     return (
-        <h1>Chat</h1>
+        <div className="outerContainer">
+            <div className="container">
+                <input value={message} 
+                onChange={ (event) => setMessage(event.target.value)}
+                onKeyPress = { (event) => event.key === 'Enter' ? sendMessage(event) : null }
+                />
+            </div>
+        </div>
     );
 }
 
