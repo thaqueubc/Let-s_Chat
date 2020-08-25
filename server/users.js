@@ -38,4 +38,5 @@ const getUser = (id) => users.find( (user) => user.id === id);
 // Get all users for a specific room
 const getUsersInRoom = (room) => users.filter((user) => user.room === room );
 
-module.exports = {addUser, removeUser, getUser, getUsersInRoom}
+// return multiple methods from a module
+module.exports = {addUser, removeUser, getUser, getUsersInRoom};

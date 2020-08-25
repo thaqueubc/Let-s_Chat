@@ -22,18 +22,35 @@ const io = socketio(server);
 
 //Connect & disconnect user using socket.io
 io.on('connection',(socket) =>{
-    console.log("We have a connection !!!!");
-
+    
     socket.on('join', ({name, room}, callback) => {
         const {error, name} = addUser({id:socket.id, name, room});
 
         // if any error is found then return
         if(error) return callback(error);
 
-        // if not found then use another method called 'join' from socket
+        // admin generated Messages
+        // Emit an event to welcome the individula user to the chat room
+        socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}`});
+        // Emit an event to let all other users know that a new user has joined
+        socket.broadcast.to(user.room).emit('message',  { user: 'admin', text: `${user.name}, has joined`});
+
+        // if error not found then use another method called 'join' from  the socket.io
         // to join the user with a room
-        
         socket.join(user.room);
+
+        callback();
+        
+    });
+
+    // handle the messages coming from the frontend from users
+    // this part is a response of the message event, emited from the frontend
+    socket.on('sendMessage', (message, callback) =>{
+        const user = getUser(socket.id);
+
+        io.to(user.room).emit('message', {user: user.name, text:message});
+
+        callback();
     })
     
     socket.on('disconnect', () =>{
