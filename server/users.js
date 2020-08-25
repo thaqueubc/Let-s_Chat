@@ -32,10 +32,10 @@ const removeUser = (id) =>{
     }
 }
 
-const getUser = () =>{
-    
-}
+// return user with the specific user id
+const getUser = (id) => users.find( (user) => user.id === id);
 
-const getUsersInRoom = () =>{
-    
-}
+// Get all users for a specific room
+const getUsersInRoom = (room) => users.filter((user) => user.room === room );
+
+module.exports = {addUser, removeUser, getUser, getUsersInRoom}
