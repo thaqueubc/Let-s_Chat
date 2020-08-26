@@ -5,8 +5,8 @@
     - Database: MongoDB
     
  ## Demo
-   - Please check out the demo
-     ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
+    - Please check out the demo
+      ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
    
 
 
