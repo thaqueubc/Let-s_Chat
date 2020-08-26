@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import './Chat.css';
 import './Input.css';
 import InfoBar from '../InfoBar/InfoBar';
-import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
 
 let socket;
 
@@ -75,7 +75,7 @@ const Chat = ({location}) =>{
                     />
                     <button className="sendButton" onClick={event => sendMessage(event)}>Send</button>
                 </form>
-               
+               <Messages messages={messages} name={name}/>
                 {/* <Input message={messages} setUserMessage={setUserMessage} sendMessage = {sendMessage} /> */}
             </div>
         </div>

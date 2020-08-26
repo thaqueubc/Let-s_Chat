@@ -29,15 +29,17 @@ io.on('connection',(socket) =>{
         // if any error is found then return
           if(error) return callback(error);
 
-        // if error not found then use another method called 'join' from  the socket.io
-        // to join the user with a room
-        socket.join(user.room);
-
         // admin generated Messages
         // Emit an event to welcome the individula user to the chat room
         socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}`});
         // Emit an event to let all other users know that a new user has joined
         socket.broadcast.to(user.room).emit('message',  { user: 'admin', text: `${user.name}, has joined`});
+
+        // if error not found then use another method called 'join' from  the socket.io
+        // to join the user with a room
+        socket.join(user.room);
+
+        io.to(user.room).emit('roomData', {room:user.room, users: getUsersInRoom(user.room)});
 
         callback();
         
@@ -49,12 +51,18 @@ io.on('connection',(socket) =>{
         const user = getUser(socket.id);
 
         io.to(user.room).emit('message', {user: user.name, text:message});
+        io.to(user.room).emit('roomData', {room: user.room, users: getUsersInRoom(user.room)});
 
         callback();
-    })
+    });
     
     socket.on('disconnect', () =>{
-        console.log("User had left");
+       // console.log("User had left");
+       const user = removeUser(socket.id);
+
+       if(user){
+           io.to(user.room).emit('message', {user: 'admin', text:`${user.name} has left.`});
+       }
     })
 });
 
