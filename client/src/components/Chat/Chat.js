@@ -56,15 +56,13 @@ const Chat = ({location}) =>{
         }
     }
 
-    const setUserMessage = (message) =>{
-        setMessage(message);
-    }
-    console.log("message", message);
-    console.log("all messages", messages);
+    // console.log("message", message);
+    // console.log("all messages", messages);
     return (
         <div className="outerContainer">
             <div className="container">
                 <InfoBar room={room}/>
+                <Messages messages={messages} name={name}/>
                 <form className="form">
                     <input 
                     className="input"
@@ -75,8 +73,7 @@ const Chat = ({location}) =>{
                     />
                     <button className="sendButton" onClick={event => sendMessage(event)}>Send</button>
                 </form>
-               <Messages messages={messages} name={name}/>
-                {/* <Input message={messages} setUserMessage={setUserMessage} sendMessage = {sendMessage} /> */}
+              
             </div>
         </div>
     );
