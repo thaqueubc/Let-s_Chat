@@ -4,8 +4,10 @@
     - Back-End: Node JS, Socket.io
     - Database: MongoDB
     
+## Run the project:
+   - Run **npm install** and **npm start** on both server and client side
+    
  ## Demo
-    - Please Chek the demo
     
    ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
    
