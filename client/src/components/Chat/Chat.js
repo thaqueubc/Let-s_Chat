@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
-import './Chat.css'
+import './Chat.css';
+import './Input.css';
 import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+
 let socket;
 
 const Chat = ({location}) =>{
@@ -39,10 +42,10 @@ const Chat = ({location}) =>{
 
     // this useEffect will handle message event
     useEffect(() =>{
-        socket.on('message', (message) =>{
-            setMessages( [...messages, message]);
+        socket.on('message', message => {
+            setMessages(messages => [...messages, message]);
         });
-    }, [messages]);
+    }, []);
 
     const sendMessage = (event) =>{
        
@@ -53,14 +56,27 @@ const Chat = ({location}) =>{
         }
     }
 
+    const setUserMessage = (message) =>{
+        setMessage(message);
+    }
+    console.log("message", message);
+    console.log("all messages", messages);
     return (
         <div className="outerContainer">
             <div className="container">
                 <InfoBar room={room}/>
-                {/* <input value={message} 
-                onChange={ (event) => setMessage(event.target.value)}
-                onKeyPress = { (event) => event.key === 'Enter' ? sendMessage(event) : null }
-                /> */}
+                <form className="form">
+                    <input 
+                    className="input"
+                    placeholder="Type your message..."
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                    onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+                    />
+                    <button className="sendButton" onClick={event => sendMessage(event)}>Send</button>
+                </form>
+               
+                {/* <Input message={messages} setUserMessage={setUserMessage} sendMessage = {sendMessage} /> */}
             </div>
         </div>
     );
