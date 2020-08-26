@@ -6,7 +6,7 @@
     
  ## Demo
     - Please check out the demo
-      ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
+        ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
    
 
 
