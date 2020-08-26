@@ -5,4 +5,5 @@
     - Database: MongoDB
    
   ## Demo 
-      ![node](https://github.com/thaqueubc/Node.js_Basics/blob/chatAppWithReact/images/chat_app.gif)
+     - Please check out the demo
+       ![node](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
