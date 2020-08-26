@@ -3,7 +3,12 @@
     - Front-End: React JS, Socket.io.Client
     - Back-End: Node JS, Socket.io
     - Database: MongoDB
+    
+ ## Passing Props:
+   - Pass parameters from one Component to other
+     ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
    
   ## Demo 
      - Please check out the demo
-       ![node](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
+       ![demo](https://github.com/thaqueubc/Let-s_Chat/blob/chatAppWithReact/images/chat_app.gif)
+
